@@ -39,9 +39,9 @@ const App = () => {
   return (
     <View style={{ flex: 1, backgroundColor: 'white', marginTop: 50 }}>
 
-      <MyFlatList />
+      {/* <MyFlatList /> */}
 
-
+      <Text>New Functionality</Text>
 
 
 
