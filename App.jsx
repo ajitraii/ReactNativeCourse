@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View, Image, ImageBackground, ActivityIndicator } from 'react-native'
 import Child1 from './src/screens/Child1';
 import MyFlatList from './src/screens/flatList/FlatList';
+import UseEffectHook from './src/screens/useEffectHook/UseEffectHook';
+import UseRefHook from './src/screens/useRefHook/UseRefHook';
+import UseContextHook from './src/screens/useContextHook/UseContextHook';
 
 const App = () => {
 
@@ -41,7 +44,11 @@ const App = () => {
 
       {/* <MyFlatList /> */}
 
-      <Text>New Functionality</Text>
+      {/* <UseEffectHook /> */}
+
+      {/* <UseRefHook /> */}
+
+      <UseContextHook />
 
 
 
