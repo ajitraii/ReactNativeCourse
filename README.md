@@ -118,3 +118,13 @@ const UseEffectHook = (props) => {
 }
 
 export default UseEffectHook;
+
+
+navigations:
+Navigations : 
+
+1.npm install @react-navigation/native
+2.npm install react-native-screens react-native-safe-area-context
+
+3.npm install @react-navigation/stack
+4.npm install react-native-gesture-handler

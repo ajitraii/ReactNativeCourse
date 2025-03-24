@@ -5,6 +5,9 @@ import MyFlatList from './src/screens/flatList/FlatList';
 import UseEffectHook from './src/screens/useEffectHook/UseEffectHook';
 import UseRefHook from './src/screens/useRefHook/UseRefHook';
 import UseContextHook from './src/screens/useContextHook/UseContextHook';
+import UseCallbackHook from './src/screens/useCallbackHook/UseCallbackHook';
+import UseMemoHook from './src/screens/useMemoHook/UseMemoHook';
+import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => {
 
@@ -48,7 +51,13 @@ const App = () => {
 
       {/* <UseRefHook /> */}
 
-      <UseContextHook />
+      {/* <UseContextHook /> */}
+
+      {/* <UseCallbackHook /> */}
+
+      {/* <UseMemoHook /> */}
+
+      <AppNavigator />
 
 
 

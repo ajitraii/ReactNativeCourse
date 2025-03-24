@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View, FlatList, SectionList } from 'react-native'
 import ChildD from './CompD'
+import { UserContext } from './UseContextHook';
 
 
 const ChildC = (props) => {
-    const [data, setData] = useState(0)
-
+    const [data, updateUserData] = useContext(UserContext);
     return (
         <View style={{ flex: 1, backgroundColor: 'white', marginTop: 50 }}>
- <Text>CHILDC</Text>
-            {/* <Text>UseEffect Hook1</Text>
-            <Text style={{ color: 'black', fontSize: 30 }}>{data}</Text> */}
+            <Text>CHILDC</Text>
+            <Text style={{ color: 'black', fontSize: 20 }}>CHILD c : {data.name}</Text>
+            <Text style={{ color: 'black', fontSize: 20 }}>CHILD c: {data.email}</Text>
 
-            <ChildD />
-            {/* <Button title={'count 2'} onPress={() => { setCount2(prev => prev + 1) }} /> */}
+           
+            <Button title={'Update C'} onPress={() => {
+                updateUserData({
+                    name: 'swarna',
+                    email: 'swarna@gmail.com'
+                })
+            }} />
+             <ChildD />
         </View>
     )
 

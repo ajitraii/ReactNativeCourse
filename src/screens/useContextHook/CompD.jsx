@@ -1,18 +1,43 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View, FlatList, SectionList } from 'react-native'
+import { UserContext } from './UseContextHook'
 
 
 const ChildD = (props) => {
-    const [data, setData] = useState(0)
+    const [data, updateUserData] = useContext(UserContext);
+    const [name, setName] = useState(data.name)
+    const [email, setEmail] = useState(data.email)
 
+    // useEffect(() => {
+    //     setName(data.name)
+    //     setEmail(data.email)
+    // }, [data])
+    
     return (
         <View style={{ flex: 1, backgroundColor: 'white', marginTop: 50 }}>
             <Text>CHILD D</Text>
-            {/* <Text>UseEffect Hook1</Text>
-            <Text style={{ color: 'black', fontSize: 30 }}>{data}</Text> */}
+            <Text style={{ color: 'black', fontSize: 20 }}>CHILD D : {data.name}</Text>
+            <Text style={{ color: 'black', fontSize: 20 }}>CHILD D: {data.email}</Text>
+
+            <TextInput value={name}
+                onChangeText={(txt) => { setName(txt) }}
+                placeholder='User Name'
+                style={{
+                    width: '80%', borderWidth: 1, borderColor: "gray", padding: 10
+
+                }} />
 
 
-            {/* <Button title={'count 2'} onPress={() => { setCount2(prev => prev + 1) }} /> */}
+
+            <TextInput value={email} onChangeText={(txt) => { setEmail(txt) }} placeholder='Email' style={{ width: '80%', borderWidth: 1, borderColor: "gray", padding: 10 }} />
+
+
+            <Button title={'Update D'} onPress={() => {
+                updateUserData({
+                    name,
+                    email
+                })
+            }} />
         </View>
     )
 
