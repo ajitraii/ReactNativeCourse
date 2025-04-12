@@ -128,3 +128,7 @@ Navigations :
 
 3.npm install @react-navigation/stack
 4.npm install react-native-gesture-handler
+
+npm install @react-navigation/native @react-navigation/drawer react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context react-native-vector-icons
+
+note:- re-animated -> +add in babel config-> plugins: ['react-native-reanimated/plugin'],

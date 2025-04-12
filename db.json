@@ -1,0 +1,60 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "ajit",
+      "email": "ajitrai@gmail.com",
+      "gender": "male",
+      "country": "",
+      "state": ""
+    },
+    {
+      "id": "f346",
+      "username": "Swarna",
+      "email": "swarna@gmail.com",
+      "gender": "male",
+      "country": "IN",
+      "state": "MH"
+    },
+    {
+      "id": "63a6",
+      "username": "Swarna1",
+      "email": "swarna1@gmail.com",
+      "gender": "female",
+      "country": "NO",
+      "state": "03"
+    },
+    {
+      "id": 1744443826001,
+      "username": "Swarna12",
+      "email": "swarna12@gmail.com",
+      "gender": "female",
+      "country": "NO",
+      "state": "03"
+    },
+    {
+      "id": 1744443864311,
+      "username": "Swarna123",
+      "email": "swarna123@gmail.com",
+      "gender": "male",
+      "country": "NO",
+      "state": "03"
+    },
+    {
+      "id": 1744444631635,
+      "username": "",
+      "email": "",
+      "gender": "",
+      "country": "",
+      "state": ""
+    },
+    {
+      "id": 1744444821402,
+      "username": "sujeeth",
+      "email": "sujeeth@gmail.com",
+      "gender": "male",
+      "country": "AF",
+      "state": "GHA"
+    }
+  ]
+}

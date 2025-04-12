@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Button, StyleSheet, Text, TextInput, View, FlatList, SectionList, StatusBar } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, View, FlatList, SectionList, StatusBar, ImageBackground } from 'react-native'
 
 
 const LoginScreen = (props) => {
@@ -20,19 +20,26 @@ const LoginScreen = (props) => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: 'white', marginTop: 50 }}>
+        <>
             <StatusBar barStyle={'dark-content'} />
-            <Text>LoginScreen</Text>
-            {/* <Text style={{ color: 'black', fontSize: 30 }}>{data}</Text> */}
+            <View>
+                <Text style={{fontSize:20, color:'blue'}}> Welcome To React Native</Text>
+            </View>
+            <ImageBackground resizeMode='contain' style={{ flex: 1, }} source={require('../../assests/Images/bacImg.jpg')}>
 
 
-            <Button title={'SIGNUP'} onPress={() => {
-                navigation.navigate('SignUp', {
-                    data,
-                    onClick: onClick
-                })
+
+
+                {/* <Text style={{ color: 'black', fontSize: 30 }}>{data}</Text> */}
+
+
+
+            </ImageBackground>
+            <Button title={'Login'} onPress={() => {
+                navigation.navigate('Home')
             }} />
-        </View>
+        </>
+
     )
 
 }

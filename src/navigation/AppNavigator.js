@@ -5,23 +5,17 @@ import { Button, StyleSheet, Text, TextInput, View, FlatList, SectionList } from
 import HomeScreen from '../screens/stackNavigator/HomeScreen';
 import SignupScreen from '../screens/stackNavigator/SignupScreen';
 import LoginScreen from '../screens/stackNavigator/LoginScreen';
+import AuthStack from './AuthStack';
 
 
 const AppNavigator = (props) => {
 
-    const Stack = createStackNavigator()
+    
     return (
         //Main Parent for Navigators
         <NavigationContainer>
-            {/* Parent for stack Navigators */}
-            <Stack.Navigator>
-                
-                <Stack.Screen name='Login' component={LoginScreen}/>
-                <Stack.Screen name='SignUp' component={SignupScreen}/>
-                <Stack.Screen name='Home' component={HomeScreen}/>
-
-            </Stack.Navigator>
-
+           <AuthStack />
+          
         </NavigationContainer>
 
     )
