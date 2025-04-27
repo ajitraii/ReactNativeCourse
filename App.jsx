@@ -8,6 +8,9 @@ import UseContextHook from './src/screens/useContextHook/UseContextHook';
 import UseCallbackHook from './src/screens/useCallbackHook/UseCallbackHook';
 import UseMemoHook from './src/screens/useMemoHook/UseMemoHook';
 import AppNavigator from './src/navigation/AppNavigator';
+import { Provider } from 'react-redux';
+import { persistedStore, Store } from './src/redux/Store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const App = () => {
 
@@ -57,7 +60,15 @@ const App = () => {
 
       {/* <UseMemoHook /> */}
 
-      <AppNavigator />
+
+      <Provider store={Store}>
+        <PersistGate persistor={persistedStore}>
+          <AppNavigator />
+        </PersistGate>
+
+      </Provider>
+
+
 
 
 

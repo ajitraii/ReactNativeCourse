@@ -3,6 +3,7 @@ import React from 'react'
 import LoginScreen from '../screens/stackNavigator/LoginScreen';
 import SignupScreen from '../screens/stackNavigator/SignupScreen';
 import AppDrawer from './AppDrawer';
+import OnlineProduct from '../screens/OnlineProduct';
 
 const Stack = createStackNavigator()
 const AuthStack = () => {
@@ -14,6 +15,7 @@ const AuthStack = () => {
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='SignUp' component={SignupScreen} />
             <Stack.Screen name='Home' component={AppDrawer} />
+            <Stack.Screen name='Product' component={OnlineProduct} />
 
         </Stack.Navigator>
     )

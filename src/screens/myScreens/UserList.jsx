@@ -4,34 +4,38 @@ import AppHeader from '../../components/AppHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { API_BASE_URL, deleteRequest, getRequest } from '../../api/Api';
 
 
 
-export const BASE_URL = 'http://10.0.2.2:3000'
 const UserList = (props) => {
-    const isFocused = useIsFocused()
+    const isFocused = useIsFocused();
+    const navigation = useNavigation()
     const [userData, setUserData] = useState([]);
 
     const fetchUser = async () => {
         try {
-            const res = await fetch(`${BASE_URL}/data`, {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json'
-                    // 'Authorization' : 'token'
-                }
-                // follow:""
-            })
-            const data = await res.json();
-            const reversedData = data.reverse()
-            setUserData(reversedData)
-            // if (data && data.status == 'OK' && data.data.length > 0) {
-            //     setUserData(data)
-            // } else {
 
-            // }
-            console.log('fetchuser Data###', data)
+            const res = await getRequest('/data')
+            setUserData(res)
+            // const res = await fetch(`${BASE_URL}/data`, {
+            //     method: 'GET',
+            //     headers: {
+            //         accept: 'application/json'
+            //         // 'Authorization' : 'token'
+            //     }
+              
+            // })
+            // const data = await res.json();
+            // const reversedData = data.reverse()
+            // setUserData(reversedData)
+            // // if (data && data.status == 'OK' && data.data.length > 0) {
+            // //     setUserData(data)
+            // // } else {
+
+            // // }
+            // console.log('fetchuser Data###', data)
         } catch (error) {
             Alert.alert('Error', error)
         }
@@ -42,6 +46,20 @@ const UserList = (props) => {
         fetchUser()
     }, [isFocused])
 
+    const onDeleteUser = async (id) => {
+       
+        try {
+
+            const res = await deleteRequest(`/data/${id}`)
+            Alert.alert('Success', 'User Deleted Successfully');
+            fetchUser()
+           
+        } catch (error) {
+
+        }
+
+    }
+
     const renderUserItem = (props) => {
         const { item } = props;
 
@@ -51,7 +69,7 @@ const UserList = (props) => {
                     <Image style={{ height: 70, width: 70, }} source={require('../../assests/Images/profile.png')} />
 
                     <View style={{ marginLeft: 30 }}>
-                        <Text style={styles.heading}>{item ? item?.name : ''}</Text>
+                        <Text style={styles.heading}>{item ? item?.username : ''}</Text>
                         <Text style={styles.subHeading}>{item ? item?.email : ''}</Text>
                         <Text style={styles.subHeading}>{item ? item?.gender : ''}</Text>
                         <Text style={styles.subHeading}>{item ? item?.country : ''}</Text>
@@ -59,12 +77,12 @@ const UserList = (props) => {
                         <Text style={styles.subHeading}>{item ? item?.city : ''}</Text>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
                     <View style={styles.iconContainer}>
-                        <Feather onPress={() => navigation.navigate('AddUser', { data: item, isEdit: true })} name="edit" size={30} color="black" />
+                        <Feather onPress={() => navigation.navigate('UserRegister', { data: item, isEdit: true })} name="edit" size={25} color="black" />
                     </View>
                     <View style={styles.iconContainer}>
-                        <AntDesign onPress={() => onDeleteUser(item.id)} name="delete" size={30} color="black" />
+                        <AntDesign onPress={() => onDeleteUser(item.id)} name="delete" size={25} color="red" />
                     </View>
                 </View>
             </View>
@@ -84,10 +102,6 @@ const UserList = (props) => {
                 />
 
             </View>
-
-
-
-
             {/* <TouchableOpacity onPress={() => { navigation.navigate('AddUser', { data: [], isEdit: false }) }} style={styles.add}>
                 <View style={styles.iconContainer}>
                     <Feather name="plus-circle" size={30} color="white" />

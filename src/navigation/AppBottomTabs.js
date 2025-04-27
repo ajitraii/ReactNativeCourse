@@ -21,14 +21,22 @@ const AppBottomTabs = (props) => {
                     )
                 }
             }} />
-            <Bottom.Screen name='Dashboard' component={UserDashboard} />
-            <Bottom.Screen name='UserRegister' component={UserRegister} options={{
+            <Bottom.Screen name='Dashboard' component={UserDashboard} options={{
                 tabBarIcon: () => {
                     return (
-                        <AntDesign name="adduser" size={22} color="black" />
+                        <AntDesign name="dashboard" size={22} color="black" />
                     )
                 }
             }} />
+            <Bottom.Screen name='UserRegister' component={UserRegister}
+                initialParams={{ isEdit: false, data: [] }} options={{
+                    tabBarIcon: () => {
+                        return (
+                            <AntDesign name="adduser" size={22} color="black" />
+                        )
+                    },
+
+                }} />
 
         </Bottom.Navigator>
 

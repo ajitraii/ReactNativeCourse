@@ -36,7 +36,10 @@ const LoginScreen = (props) => {
 
             </ImageBackground>
             <Button title={'Login'} onPress={() => {
-                navigation.navigate('Home')
+                // navigation.navigate('Home')
+                // Navigate to Product screen
+
+                navigation.navigate('Product')
             }} />
         </>
 

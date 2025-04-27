@@ -7,7 +7,8 @@ import { Dropdown } from 'react-native-element-dropdown';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { RadioButton } from 'react-native-paper';
 import { BASE_URL } from './UserList';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import { postRequest, putRequest } from '../../api/Api';
 
 const validationSchema = yup.object({
     username: yup.string().min(3, 'Name should be greater than 3').required('Name is required'),
@@ -16,7 +17,11 @@ const validationSchema = yup.object({
 
 const UserRegister = (props) => {
 
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const route = useRoute();
+    console.log('params', route)
+    const isFocused = useIsFocused()
+    const { data, isEdit } = route.params
     const [countryList, setCountryList] = useState([])
     const [stateList, setStateList] = useState([])
     const [loading, setLoading] = useState(false)
@@ -30,6 +35,7 @@ const UserRegister = (props) => {
     const [states, setStates] = useState([]);
     const [cityOpen, setCityOpen] = useState(false);
     const [Cities, setCities] = useState([]);
+    const [visible, setVisible] = useState(false);
 
     const apiKey = 'NzFxa3FNeUtwZ1Zud0pLVU92RzJRME9ENW8xcE1CcFpWRUVxbUI3cQ=='
 
@@ -81,57 +87,58 @@ const UserRegister = (props) => {
     }
 
     useEffect(() => {
+
         fetchCountry()
-    }, [])
+        setVisible(true)
+    }, [isFocused, isEdit])
+
 
     let formInitialValues = {
-        username: '',
-        email: '',
-        gender: '',
-        country: '',
-        state: ''
+        username: isEdit ? data.username : '',
+        email: isEdit ? data.email : '',
+        gender: isEdit ? data.gender : '',
+        country: isEdit ? data.country : '',
+        state: isEdit ? data.state : ''
     };
+    console.log('formInitialValues', formInitialValues)
 
+    const successMsg = (succData) => {
+        Alert.alert('Success', succData, [
+            {
+                text: 'Cancel',
+                onPress: () => { },
+                style: 'cancel',
+            },
+            {
+                text: 'OK', onPress: () => {
+                    navigation.goBack()
+                    formInitialValues = {
+                        username: '',
+                        email: '',
+                        gender: '',
+                        country: '',
+                        state: ''
+                    };
+                }
+            },
+        ])
+    }
     const onRegister = async (values) => {
+
         try {
             const payload = {
                 ...values,
-                id: Date.now()
+                id: isEdit ? data.id : Date.now()
             }
-            setLoading(true)
-            const headers = new Headers();
-            // headers.append("X-CSCAPI-KEY", apiKey);
-            headers.append("Accept", 'application/json');
-            headers.append("Content-Type", 'application/json');
-            const res = await fetch(`${BASE_URL}/data`, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(payload)
-            });
-            const response = await res.json()
-            console.log('Register res', response)
-            Alert.alert('Success', "User Registered Successfully", [
-                {
-                    text: 'Cancel',
-                    onPress: () => { },
-                    style: 'cancel',
-                },
-                {
-                    text: 'OK', onPress: () => {
-                        navigation.goBack()
-                        formInitialValues = {
-                            username: '',
-                            email: '',
-                            gender: '',
-                            country: '',
-                            state: ''
-                        };
-                    }
-                },
-            ])
-            // navigation.goBack()
-
-
+            setLoading(true);
+            let res
+            if (isEdit) {
+                res = await putRequest(`/data/${payload.id}`, payload)
+                successMsg('User UPdated Successfully')
+            } else {
+                res = await postRequest('/data', payload)
+                successMsg('User Registered Successfully')
+            }
         } catch (error) {
             console.error('Fetch country error:', error);
         } finally {
@@ -139,16 +146,29 @@ const UserRegister = (props) => {
         }
     }
 
+    const onBackPresses = () => {
+        formInitialValues = {
+            username: '',
+            email: '',
+            gender: '',
+            country: '',
+            state: ''
+        };
+        navigation.goBack();
+
+
+    }
+
 
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white', }}>
-            <AppHeader title={'Add User'} showBackButton={false} />
+            <AppHeader title={'Add User'} showBackButton={false} onPress={() => { onBackPresses() }} />
             {loading && <ActivityIndicator size={'large'} style={{ flex: 1, justifyContent: 'center' }} />}
             <Formik
                 initialValues={formInitialValues}
                 validationSchema={validationSchema}
-                enableReinitialize={false}
+                enableReinitialize={true}
                 onSubmit={(values) => {
                     onRegister(values);
                 }}>
@@ -244,54 +264,11 @@ const UserRegister = (props) => {
                                     />
                                 </View>}
 
-
-
-
-                            {/* <Dropdown
-                                style={styles.dropdown}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                inputSearchStyle={styles.inputSearchStyle}
-                                iconStyle={styles.iconStyle}
-                                data={countryList}
-                                search
-                                maxHeight={300}
-                                labelField="label"
-                                valueField="value"
-                                placeholder={'Select Country'}
-                                searchPlaceholder="Search..."
-                                value={values.country}
-                                onChange={item => {
-                                    setFieldValue('country', item.label)
-                                    setFieldValue('state', '') // reset state when country changes
-                                    fetchState(item.value)
-                                }}
-                            /> */}
-
-                            {/* <Dropdown
-                                style={styles.dropdown}
-                                placeholderStyle={styles.placeholderStyle}
-                                selectedTextStyle={styles.selectedTextStyle}
-                                inputSearchStyle={styles.inputSearchStyle}
-                                iconStyle={styles.iconStyle}
-                                data={stateList}
-                                search
-                                maxHeight={300}
-                                labelField="label"
-                                valueField="value"
-                                placeholder={'Select State'}
-                                searchPlaceholder="Search..."
-                                value={values.state}
-                                onChange={item => {
-                                    setFieldValue('state', item.label)
-                                }}
-                            /> */}
-
                             <TouchableOpacity onPress={() => {
                                 handleSubmit()
 
                             }} style={styles.btn}>
-                                <Text style={{ alignSelf: 'center' }}>Submit</Text>
+                                <Text style={{ alignSelf: 'center' }}>{isEdit ? 'UPDATE' : 'SUBMIT'}</Text>
                             </TouchableOpacity>
                         </View>
                     )

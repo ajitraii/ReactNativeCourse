@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-const AppHeader = ({ title, showBackButton = true }) => {
+const AppHeader = ({ title, showBackButton = true, onPress }) => {
     const navigation = useNavigation();
     // console.log(navigation)
     return (
@@ -16,7 +16,7 @@ const AppHeader = ({ title, showBackButton = true }) => {
                 </TouchableOpacity>
             ) : (
 
-                < TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconContainer}>
+                < TouchableOpacity onPress={ onPress} style={styles.iconContainer}>
                     <Icon name="keyboard-backspace" size={24} color="#fff" />
                 </TouchableOpacity>
             )
